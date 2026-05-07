@@ -879,6 +879,47 @@ void main() {
          onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22600%22 height=%22400%22 viewBox=%220 0 600 400%22%3E%3Crect width=%22600%22 height=%22400%22 fill=%22%232a2420%22/%3E%3Ctext x=%2250%25%22 y=%2245%25%22 text-anchor=%22middle%22 fill=%22%23d4c5a9%22 font-size=%2220%22 font-family=%22Georgia%22%3E Tampilan VS Code%3C/text%3E%3Ctext x=%2250%25%22 y=%2260%25%22 text-anchor=%22middle%22 fill=%22%23b89a6e%22 font-size=%2214%22%3EPastikan file vscode5.png tersedia%3C/text%3E%3C/svg%3E';">
 </div>
 
+        <!-- 6 -->
+<div class="section">
+<h2>6.Penerapan Generic Menggabungkan Dua Tipe Data</h2>
+<ul>
+  <li>
+    Dengan penggunaan generic function, program menjadi lebih fleksibel 
+    karena satu fungsi dapat digunakan untuk berbagai jenis tipe data tanpa 
+    harus membuat fungsi yang berbeda-beda.
+  </li>
+</ul>    
+<h3>Kode Program VS Code:</h3>
+<div class="code-box">
+<pre><code>
+// Nama  : ADRIL NOVRA MARCELINO
+// NIM   : 251410017
+// Kelas : SI2A
+
+String combine<T, U>(T value1, U value2) {
+  return '$value1, $value2';
+}
+
+void main() {
+  var result1 = combine<String, int>('Number is', 10);
+  print(result1);
+
+  var result2 = combine<int, double>(10, 20.5);
+  print(result2);
+}
+</code></pre>
+</div>
+    
+    <div class="btn-group">
+        <button class="btn btn-primary" onclick="toggleImage('img3')">
+             Tampil Kode VS Code
+        </button>
+    </div>
+
+    <img id="img6" class="vscode-image" src="vscode6.png" alt="Tampilan VS Code" style="display:none;" 
+         onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22600%22 height=%22400%22 viewBox=%220 0 600 400%22%3E%3Crect width=%22600%22 height=%22400%22 fill=%22%232a2420%22/%3E%3Ctext x=%2250%25%22 y=%2245%25%22 text-anchor=%22middle%22 fill=%22%23d4c5a9%22 font-size=%2220%22 font-family=%22Georgia%22%3E Tampilan VS Code%3C/text%3E%3Ctext x=%2250%25%22 y=%2260%25%22 text-anchor=%22middle%22 fill=%22%23b89a6e%22 font-size=%2214%22%3EPastikan file vscode6.png tersedia%3C/text%3E%3C/svg%3E';">
+</div>
+
       
 </div>
 </body>
