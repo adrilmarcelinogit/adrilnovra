@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Multiple Inheritance & Class Modifiers | Dart OOP | Dark Academia Theme</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* GOOGLE FONTS - Lebih elegan */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: #1a1a1c;
+    color: #e8e2d0;
+    min-height: 100vh;
+    position: relative;
+}
+
+/* BACKGROUND - Vintage Paper Texture */
+.cyber-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+    background: linear-gradient(135deg, #2a2420 0%, #1e1b1a 50%, #181514 100%);
+}
+
+.cyber-bg::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" opacity="0.08"><path fill="none" d="M0 0 L400 0 M0 10 L400 10 M0 20 L400 20 M0 30 L400 30 M0 40 L400 40 M0 50 L400 50 M0 60 L400 60 M0 70 L400 70 M0 80 L400 80 M0 90 L400 90 M0 100 L400 100 M0 110 L400 110 M0 120 L400 120 M0 130 L400 130 M0 140 L400 140 M0 150 L400 150 M0 160 L400 160 M0 170 L400 170 M0 180 L400 180 M0 190 L400 190 M0 200 L400 200 M0 210 L400 210 M0 220 L400 220 M0 230 L400 230 M0 240 L400 240 M0 250 L400 250 M0 260 L400 260 M0 270 L400 270 M0 280 L400 280 M0 290 L400 290 M0 300 L400 300" stroke="%23d4c5a9" stroke-width="0.5"/></svg>');
+    background-repeat: repeat;
+    pointer-events: none;
+}
+
+.cyber-bg::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(ellipse at 30% 40%, rgba(180, 140, 100, 0.08) 0%, rgba(0,0,0,0) 70%);
+    pointer-events: none;
+}
+
+/* GLOWING TEXT ANIMATION - Lebih subtle */
+.glitch-text {
+    animation: subtleGlow 4s ease-in-out infinite;
+}
+
+@keyframes subtleGlow {
+    0%, 100% { text-shadow: 0 0 2px rgba(212, 197, 169, 0.3); }
+    50% { text-shadow: 0 0 8px rgba(212, 197, 169, 0.5); }
+}
+
+/* FALLING CODE ANIMATION - Transisi halus */
+.falling-codes {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.12;
+}
+
+.falling-codes span {
+    position: absolute;
+    color: #c9b896;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    animation: fallSlow linear infinite;
+    filter: blur(0.3px);
+}
+
+@keyframes fallSlow {
+    from { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+    to { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 30px 20px;
+    position: relative;
+    z-index: 1;
+}
+
+/* ========== HEADER ========== */
+.header {
+    background: rgba(26, 26, 28, 0.92);
+    backdrop-filter: blur(12px);
+    border-radius: 24px;
+    padding: 50px 30px;
+    text-align: center;
+    margin-bottom: 30px;
+    border: 1px solid rgba(212, 197, 169, 0.3);
+    box-shadow: 0 20px 40px -20px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.05);
+    position: relative;
+    overflow: hidden;
+}
+
+.header::before {
+    content: "§";
+    position: absolute;
+    bottom: 15px;
+    right: 25px;
+    font-size: 80px;
+    font-family: 'Cormorant Garamond', serif;
+    color: rgba(212, 197, 169, 0.08);
+    pointer-events: none;
+}
+
+.header h1 {
+    font-size: clamp(2rem, 6vw, 3.5rem);
+    font-weight: 500;
+    font-family: 'Cormorant Garamond', serif;
+    color: #d4c5a9;
+    letter-spacing: -0.3px;
+    margin: 5px 0;
+    font-style: italic;
+}
+
+.header .amp {
+    font-size: clamp(1.8rem, 5vw, 2.8rem);
+    font-weight: 400;
+    font-family: 'Cormorant Garamond', serif;
+    color: #b89a6e;
+}
+
+.header-divider {
+    width: 80px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #b89a6e, #d4c5a9, #b89a6e, transparent);
+    margin: 25px auto;
+    border-radius: 2px;
+}
+
+.identity {
+    margin-top: 10px;
+}
+
+.identity p {
+    font-size: 1rem;
+    font-weight: 400;
+    color: #b89a6e;
+    letter-spacing: 1px;
+    margin: 5px 0;
+}
+
+.identity p:first-child {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #d4c5a9;
+    letter-spacing: 2px;
+}
+
+/* ========== SECTION CARD ========== */
+.section {
+    background: rgba(26, 26, 28, 0.88);
+    backdrop-filter: blur(8px);
+    border-radius: 20px;
+    padding: 30px;
+    margin-bottom: 25px;
+    border: 1px solid rgba(212, 197, 169, 0.2);
+    transition: all 0.35s ease;
+    position: relative;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+}
+
+.section:hover {
+    transform: translateY(-3px);
+    border-color: rgba(212, 197, 169, 0.5);
+    box-shadow: 0 15px 35px -12px rgba(0,0,0,0.5);
+    background: rgba(30, 30, 33, 0.94);
+}
+
+.section h2 {
+    font-size: 1.8rem;
+    font-weight: 500;
+    font-family: 'Cormorant Garamond', serif;
+    color: #d4c5a9;
+    margin-bottom: 20px;
+    letter-spacing: -0.2px;
+}
+
+.section h2::after {
+    content: "";
+    display: block;
+    width: 50px;
+    height: 2px;
+    background: #b89a6e;
+    margin-top: 12px;
+    border-radius: 2px;
+}
+
+.section h3 {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #c9b896;
+    margin: 20px 0 12px 0;
+    letter-spacing: 0.3px;
+}
+
+.section p {
+    color: #cbc6bc;
+    line-height: 1.75;
+    margin-bottom: 15px;
+    font-weight: 400;
+    font-size: 0.95rem;
+}
+
+.section ul {
+    margin-left: 25px;
+    margin: 15px 0;
+}
+
+.section li {
+    color: #beb7ab;
+    margin-bottom: 10px;
+    line-height: 1.65;
+    font-size: 0.95rem;
+}
+
+/* ========== CODE BOX ========== */
+.code-box {
+    background: #0f0f11;
+    border-radius: 14px;
+    padding: 20px;
+    margin: 20px 0;
+    border-left: 4px solid #b89a6e;
+    border-right: 1px solid #2a2a2e;
+    border-top: 1px solid #2a2a2e;
+    border-bottom: 1px solid #2a2a2e;
+    overflow-x: auto;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.3), 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.code-box pre {
+    margin: 0;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+.code-box code {
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    font-size: 12px;
+    color: #e0d6c5;
+    line-height: 1.6;
+}
+
+/* ========== BUTTON ========== */
+.btn-group {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-top: 15px;
+    justify-content: flex-start;
+}
+
+.btn {
+    padding: 8px 24px;
+    border-radius: 30px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    border: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+}
+
+.btn-primary {
+    background: rgba(184, 154, 110, 0.12);
+    border: 1px solid #b89a6e;
+    color: #d4c5a9;
+}
+
+.btn-primary:hover {
+    background: rgba(184, 154, 110, 0.25);
+    transform: translateY(-1px);
+    border-color: #d4c5a9;
+    color: #efe8dc;
+}
+
+.btn-secondary {
+    background: rgba(212, 197, 169, 0.08);
+    border: 1px solid #6b5c4a;
+    color: #b89a6e;
+}
+
+.btn-secondary:hover {
+    background: rgba(212, 197, 169, 0.15);
+    transform: translateY(-1px);
+    border-color: #b89a6e;
+}
+
+/* ========== GAMBAR ========== */
+.vscode-image {
+    margin-top: 18px;
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+    border: 1px solid #3a3530;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.vscode-image:hover {
+    transform: scale(1.01);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.5);
+    border-color: #b89a6e;
+}
+
+/* ========== MODAL ========== */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    inset: 0;
+    background: rgba(20, 18, 17, 0.98);
+    backdrop-filter: blur(15px);
+    cursor: pointer;
+}
+
+.modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 90%;
+    max-height: 90%;
+}
+
+.modal-content img {
+    max-width: 100%;
+    max-height: 85vh;
+    border-radius: 16px;
+    border: 1px solid #b89a6e;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+}
+
+.close-modal {
+    position: absolute;
+    right: 35px;
+    top: 25px;
+    font-size: 40px;
+    color: #b89a6e;
+    cursor: pointer;
+    transition: 0.2s;
+    z-index: 1001;
+    font-family: serif;
+}
+
+.close-modal:hover {
+    transform: scale(1.1);
+    color: #d4c5a9;
+}
+
+/* ========== SUMMARY BOX ========== */
+.summary-box {
+    background: linear-gradient(135deg, rgba(184, 154, 110, 0.08), rgba(212, 197, 169, 0.04));
+    border-radius: 20px;
+    padding: 30px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 1px solid rgba(184, 154, 110, 0.3);
+    backdrop-filter: blur(4px);
+}
+
+.summary-box p {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #d4c5a9;
+    margin-bottom: 15px;
+}
+
+.summary-box li {
+    color: #c9b896;
+}
+
+/* ========== FOOTER ========== */
+.footer {
+    text-align: center;
+    padding: 30px;
+    margin-top: 40px;
+    border-top: 1px solid rgba(184, 154, 110, 0.2);
+    color: #7a6b58;
+    font-size: 0.85rem;
+}
+
+.footer p {
+    margin: 5px 0;
+}
+
+/* ========== SCROLLBAR - Elegan ========== */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: #1a1a1c;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #4a4036;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #6b5c4a;
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+    .section {
+        padding: 20px;
+    }
+    .section h2 {
+        font-size: 1.5rem;
+    }
+    .btn {
+        padding: 6px 18px;
+        font-size: 11px;
+    }
+    .header {
+        padding: 30px 20px;
+    }
+}
+
+.button {
+    background: rgba(184, 154, 110, 0.15);
+    border: 1px solid #b89a6e;
+    padding: 10px 24px;
+    border-radius: 30px;
+    font-weight: 500;
+    cursor: pointer;
+    margin: 15px 0;
+    color: #d4c5a9;
+    transition: all 0.25s ease;
+}
+
+.button:hover {
+    background: rgba(184, 154, 110, 0.3);
+    transform: translateY(-1px);
+}
+</style>
+
+<script>
+// FALLING CODE ANIMATION - Dark Academia version
+function createFallingCodes() {
+    const container = document.querySelector('.falling-codes');
+    if (!container) return;
+    
+    const chars = ['0', '1', 'class', 'void', 'main', 'extends', 'final', 'sealed', 'abstract', 'mixins', '=>', '{}', '()', '[]', 'if', 'else', 'return', 'new'];
+    
+    for (let i = 0; i < 40; i++) {
+        const span = document.createElement('span');
+        span.textContent = chars[Math.floor(Math.random() * chars.length)];
+        span.style.left = Math.random() * 100 + '%';
+        span.style.animationDuration = Math.random() * 12 + 8 + 's';
+        span.style.animationDelay = Math.random() * 15 + 's';
+        span.style.opacity = Math.random() * 0.25 + 0.05;
+        span.style.fontSize = Math.random() * 14 + 8 + 'px';
+        container.appendChild(span);
+    }
+}
+
+// TOGGLE IMAGE
+function toggleImage(imgId) {
+    const img = document.getElementById(imgId);
+    if (!img) {
+        console.error("Gambar tidak ditemukan:", imgId);
+        return;
+    }
+    img.style.display = img.style.display === "none" || img.style.display === "" ? "block" : "none";
+}
+
+// MODAL FUNCTIONS
+function openModal(imgId) {
+    const img = document.getElementById(imgId);
+    const modal = document.getElementById("imageModal");
+    const modalImg = document.getElementById("modalImage");
+    if (!img || !modal || !modalImg) return;
+    modal.style.display = "block";
+    modalImg.src = img.src;
+}
+
+function closeModal() {
+    const modal = document.getElementById("imageModal");
+    if (modal) modal.style.display = "none";
+}
+
+// INITIALIZATION
+document.addEventListener("DOMContentLoaded", function() {
+    createFallingCodes();
+    
+    const images = document.querySelectorAll('.vscode-image');
+    images.forEach(img => {
+        img.addEventListener('click', () => openModal(img.id));
+    });
+    
+    console.log("📚 Dark Academia Theme Loaded!");
+});
+
+// CLICK OUTSIDE MODAL
+window.onclick = function(e) {
+    const modal = document.getElementById("imageModal");
+    if (e.target === modal) closeModal();
+}
+</script>
+</head>
+
+<body>
+
+<div class="cyber-bg"></div>
+<div class="falling-codes"></div>
+
+<div class="container">
+
+<!-- HEADER -->
+<div class="header">
+    <h1 class="glitch-text">Multiple Inheritance</h1>
+    <h1 class="glitch-text">Class Modifiers</h1>
+    <div class="header-divider"></div>
+    <div class="identity">
+        <p>ADRIL NOVRA MARCELINO</p>
+        <p>251410017</p>
+        <p>SI2A</p>
+    </div>
+</div>
+<div class="section">
+<h2>1.Tanpa Generic</h2>
+<ul>
+  <li>
+
+Pada program ini, Box merupakan class yang digunakan untuk menyimpan data.
+Class Box menggunakan tipe data dynamic, sehingga dapat menampung berbagai jenis data.
+Data yang disimpan awalnya berupa int, kemudian dapat diubah menjadi String.
+Karena tidak ada pembatasan tipe data, program berpotensi mengalami kesalahan.
+Kesalahan biasanya terjadi saat program dijalankan (runtime error).
+Dengan demikian, penggunaan dynamic bersifat fleksibel namun kurang aman.
+</ul>
+<h3>Kode Program VS Code:</h3>
+<div class="code-box">
+<pre><code>
+// Nama  : Adril Novra Marcelino
+// NIM   : 251410017
+// Kelas : SI.2A
+    
+class Box {
+  dynamic data;
+
+  Box(this.data);
+}
+
+void main() {
+  // Menyimpan data awal
+  var box = Box(42);
+
+  // Menampilkan data awal
+  int value = box.data;
+  print("Nilai awal: $value");
+
+  // Mengubah data
+  box.data = "Hello";
+
+  // Menampilkan data setelah diubah
+  print("Data setelah diubah: ${box.data}");
+}
+</code></pre>
+ </div>
+    
+    <div class="btn-group">
+        <button class="btn btn-primary" onclick="toggleImage('img1')">
+            📁 Lihat Kode VS Code
+        </button>
+    </div>
+
+    <img id="img1" class="vscode-image" src="vscode1.png" alt="Tampilan VS Code" style="display:none;" 
+         onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22600%22 height=%22400%22 viewBox=%220 0 600 400%22%3E%3Crect width=%22600%22 height=%22400%22 fill=%22%232a2420%22/%3E%3Ctext x=%2250%25%22 y=%2245%25%22 text-anchor=%22middle%22 fill=%22%23d4c5a9%22 font-size=%2220%22 font-family=%22Georgia%22%3E📜 Gambar VS Code%3C/text%3E%3Ctext x=%2250%25%22 y=%2260%25%22 text-anchor=%22middle%22 fill=%22%23b89a6e%22 font-size=%2214%22%3EPastikan file vscode1.png tersedia%3C/text%3E%3C/svg%3E';">
+</div>
+
+<div id="imageModal" class="modal" onclick="closeModal()" style="display:none;">
+    <span class="close-modal">&times;</span>
+    <div class="modal-content">
+        <img id="modalImage" src="" alt="Preview">
+    </div>
+</div>
+
+    <!-- 2 -->
+<div class="section">
+<h2>2.Dengan Generic</h2>
+    <ul>
+  <li>
+    Pada program ini, <b>Box&lt;T&gt;</b> digunakan sebagai class generic 
+    yang dapat menyimpan berbagai tipe data sesuai dengan tipe yang diberikan.
+  </li>
+
+  <li>
+    Tipe <b>&lt;T&gt;</b> memungkinkan class <b>Box</b> menjadi fleksibel, 
+    sehingga dapat digunakan untuk menyimpan data bertipe <b>int</b>, 
+    <b>String</b>, atau tipe lainnya.
+  </li>
+
+  <li>
+    Pada fungsi <b>main()</b>, dibuat dua objek yaitu 
+    <b>Box&lt;int&gt;</b> dan <b>Box&lt;String&gt;</b> untuk menyimpan 
+    data dengan tipe yang berbeda.
+  </li>
+
+  <li>
+    Program kemudian menampilkan isi dari masing-masing objek menggunakan 
+    <b>print()</b>, sehingga terlihat bahwa setiap Box menyimpan data 
+    sesuai dengan tipe yang telah ditentukan.
+  </li>
+
+  <li>
+    Dengan penggunaan generic, program menjadi lebih aman karena tipe data 
+    tidak dapat diubah sembarangan, sehingga menghindari kesalahan tipe data 
+    saat program dijalankan.
+  </li>
+</ul>
+<h3>Kode Program VS Code:</h3>
+<div class="code-box">
+<pre><code>
+// Nama  : Adril Novra Marcelino
+// NIM   : 251410017
+// Kelas : SI.2A
+
+class Box<T> {
+  T data;
+
+  Box(this.data);
+}
+
+void main() {
+  // Data awal
+  var intBox = Box<int>(42);
+  var stringBox = Box<String>("Hello");
+
+  // Menampilkan data
+  print("Nilai int: ${intBox.data}");
+  print("Nilai string: ${stringBox.data}");
+
+  // Contoh keamanan (tidak bisa diubah tipe)
+  // intBox.data = "Hello"; // ❌ ERROR
+}
+</code></pre>
+ </div>
+    
+    <div class="btn-group">
+        <button class="btn btn-primary" onclick="toggleImage('img2')">
+             Tampil Kode VS Code
+        </button>
+    </div>
+
+    <img id="img2" class="vscode-image" src="vscode2.png" alt="Tampilan VS Code" style="display:none;" 
+         onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22600%22 height=%22400%22 viewBox=%220 0 600 400%22%3E%3Crect width=%22600%22 height=%22400%22 fill=%22%232a2420%22/%3E%3Ctext x=%2250%25%22 y=%2245%25%22 text-anchor=%22middle%22 fill=%22%23d4c5a9%22 font-size=%2220%22 font-family=%22Georgia%22%3E Tampilan VS Code%3C/text%3E%3Ctext x=%2250%25%22 y=%2260%25%22 text-anchor=%22middle%22 fill=%22%23b89a6e%22 font-size=%2214%22%3EPastikan file vscode2.png tersedia%3C/text%3E%3C/svg%3E';">
+</div>
+
+    <!-- 3 -->
+<div class="section">
+<h2>3.Sintaks Generic Class dan Function</h2>
+<ul>
+  <li>
+    Pada program ini, <b>MyClass&lt;T&gt;</b> digunakan sebagai class generic 
+    yang dapat menyimpan berbagai tipe data sesuai dengan tipe yang diberikan.
+  </li>
+
+  <li>
+    Tipe <b>&lt;T&gt;</b> membuat class <b>MyClass</b> menjadi fleksibel, 
+    sehingga dapat digunakan untuk menyimpan data bertipe <b>int</b>, 
+    <b>String</b>, atau tipe lainnya.
+  </li>
+
+  <li>
+    Method <b>getData()</b> digunakan untuk mengambil nilai yang tersimpan 
+    di dalam class sesuai dengan tipe data yang telah ditentukan.
+  </li>
+
+  <li>
+    Selain itu, terdapat <b>generic function</b> yaitu <b>myFunc&lt;T&gt;</b> 
+    yang dapat menerima dan mengembalikan nilai dengan tipe yang sama, 
+    sehingga fungsi ini juga bersifat fleksibel terhadap berbagai tipe data.
+  </li>
+
+  <li>
+    Pada fungsi <b>main()</b>, dibuat objek <b>MyClass&lt;int&gt;</b> dan 
+    <b>MyClass&lt;String&gt;</b>, serta pemanggilan fungsi 
+    <b>myFunc</b> dengan tipe <b>int</b> dan <b>String</b>.
+  </li>
+
+  <li>
+    Program kemudian menampilkan hasil menggunakan <b>print()</b>, 
+    sehingga terlihat bahwa setiap data diproses sesuai dengan tipe 
+    yang telah ditentukan.
+  </li>
+
+  <li>
+    Dengan penggunaan generic, program menjadi lebih aman dan terstruktur 
+    karena tipe data sudah ditentukan sejak awal, sehingga mengurangi 
+    kesalahan saat program dijalankan.
+  </li>
+</ul>
+   <h3>Kode Program VS Code:</h3>
+<div class="code-box">
+<pre><code>
+// Nama  : ADRIL NOVRA MARCELINO
+// NIM   : 251410017
+// Kelas : SI2A
+
+class MyClass<T> {
+  T data;
+
+  MyClass(this.data);
+
+  T getData() {
+    return data;
+  }
+}
+
+// Generic function
+T myFunc<T>(T value) {
+  return value;
+}
+
+void main() {
+  var myInt = MyClass<int>(10);
+  var myString = MyClass<String>("test");
+
+  print(myInt.getData());
+  print(myString.getData());
+
+  var intValue = myFunc<int>(100);
+  var stringValue = myFunc<String>("hello");
+
+  print(intValue);
+  print(stringValue);
+}
+</code></pre>
+ </div>
+    
+    <div class="btn-group">
+        <button class="btn btn-primary" onclick="toggleImage('img3')">
+             Tampil Kode VS Code
+        </button>
+    </div>
+
+    <img id="img3" class="vscode-image" src="vscode3.png" alt="Tampilan VS Code" style="display:none;" 
+         onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22600%22 height=%22400%22 viewBox=%220 0 600 400%22%3E%3Crect width=%22600%22 height=%22400%22 fill=%22%232a2420%22/%3E%3Ctext x=%2250%25%22 y=%2245%25%22 text-anchor=%22middle%22 fill=%22%23d4c5a9%22 font-size=%2220%22 font-family=%22Georgia%22%3E Tampilan VS Code%3C/text%3E%3Ctext x=%2250%25%22 y=%2260%25%22 text-anchor=%22middle%22 fill=%22%23b89a6e%22 font-size=%2214%22%3EPastikan file vscode3.png tersedia%3C/text%3E%3C/svg%3E';">
+</div>
+
+      <!-- 4 -->
+<div class="section">
+<h2>4.kelas Box <T></h2>
+<ul>
+  <li>
+    Dengan penggunaan generic, program menjadi lebih aman dan terstruktur 
+    karena tipe data sudah ditentukan sejak awal, sehingga menghindari kesalahan 
+    tipe data saat program dijalankan.
+  </li>
+</ul>
+   <h3>Kode Program VS Code:</h3>
+<div class="code-box">
+<pre><code>
+// Nama  : ADRIL NOVRA MARCELINO
+// NIM   : 251410017
+// Kelas : SI2A
+
+class Box<T> {
+  T? _value;
+
+  Box(this._value);
+
+  T? get value => _value;
+
+  void setValue(T value) {
+    _value = value;
+  }
+}
+
+void main() {
+  var intBox = Box<int>(10);
+  print("Int Box: ${intBox.value}");
+
+  intBox.setValue(20);
+  print("Set Int: ${intBox.value}");
+
+  var stringBox = Box<String>("Hello");
+  print("String Box: ${stringBox.value}");
+
+  stringBox.setValue("World");
+  print("Set String: ${stringBox.value}");
+
+  var doubleBox = Box<double>(3.14);
+  print("Double Box: ${doubleBox.value}");
+}
+</code></pre>
+
+       </div>
+    
+    <div class="btn-group">
+        <button class="btn btn-primary" onclick="toggleImage('img3')">
+             Tampil Kode VS Code
+        </button>
+    </div>
+
+    <img id="img4" class="vscode-image" src="vscode4.png" alt="Tampilan VS Code" style="display:none;" 
+         onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22600%22 height=%22400%22 viewBox=%220 0 600 400%22%3E%3Crect width=%22600%22 height=%22400%22 fill=%22%232a2420%22/%3E%3Ctext x=%2250%25%22 y=%2245%25%22 text-anchor=%22middle%22 fill=%22%23d4c5a9%22 font-size=%2220%22 font-family=%22Georgia%22%3E Tampilan VS Code%3C/text%3E%3Ctext x=%2250%25%22 y=%2260%25%22 text-anchor=%22middle%22 fill=%22%23b89a6e%22 font-size=%2214%22%3EPastikan file vscode4.png tersedia%3C/text%3E%3C/svg%3E';">
+</div>
+
+      
+<!-- 5 -->
+<div class="section">
+<h2>5.Multiple Type Parameters</h2>
+<ul>
+  <li>
+    Dengan penggunaan generic, program menjadi lebih aman, fleksibel, 
+    dan mengurangi kemungkinan kesalahan tipe data saat dijalankan.
+  </li>
+</ul>
+   <h3>Kode Program VS Code:</h3>
+<div class="code-box">
+<pre><code>
+// Nama  : ADRIL NOVRA MARCELINO
+// NIM   : 251410017
+// Kelas : SI2A
+
+class Pair<K, V> {
+  K key;
+  V value;
+
+  Pair(this.key, this.value);
+
+  void printPair() {
+    print("Key: $key, Value: $value");
+  }
+}
+
+void main() {
+  var pair1 = Pair<String, int>("age", 30);
+  pair1.printPair();
+
+  var pair2 = Pair<String, String>("name", "Alice");
+  pair2.printPair();
+
+  var pair3 = Pair<int, double>(1, 2.71);
+  pair3.printPair();
+}
+</code></pre>
+</div>
+    
+    <div class="btn-group">
+        <button class="btn btn-primary" onclick="toggleImage('img3')">
+             Tampil Kode VS Code
+        </button>
+    </div>
+
+    <img id="img5" class="vscode-image" src="vscode5.png" alt="Tampilan VS Code" style="display:none;" 
+         onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22600%22 height=%22400%22 viewBox=%220 0 600 400%22%3E%3Crect width=%22600%22 height=%22400%22 fill=%22%232a2420%22/%3E%3Ctext x=%2250%25%22 y=%2245%25%22 text-anchor=%22middle%22 fill=%22%23d4c5a9%22 font-size=%2220%22 font-family=%22Georgia%22%3E Tampilan VS Code%3C/text%3E%3Ctext x=%2250%25%22 y=%2260%25%22 text-anchor=%22middle%22 fill=%22%23b89a6e%22 font-size=%2214%22%3EPastikan file vscode5.png tersedia%3C/text%3E%3C/svg%3E';">
+</div>
+
+      
+</div>
+</body>
+</html>
