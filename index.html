@@ -1121,6 +1121,315 @@ void main() {
 </div>
 
       
+<!-- 11 -->
+<div class="section">
+<h2>11.Praktik Generic Class & Fungsi</h2>
+<ul>
+  <li>
+    Dengan penerapan generic, program menjadi lebih reusable, fleksibel, 
+    dan type-safe karena dapat digunakan untuk berbagai jenis data tanpa 
+    mengubah struktur kode.
+  </li>
+</ul>
+<h3>Kode Program VS Code:</h3>
+<div class="code-box">
+<pre><code>
+// Nama  : ADRIL NOVRA MARCELINO
+// NIM   : 251410017
+// Kelas : SI.2A
+
+// Repository Generic
+class Repository<T> {
+  List<T> _items = [];
+
+  void save(T item) {
+    _items.add(item);
+  }
+
+  T getById(int id) {
+    return _items[id];
+  }
+
+  List<T> getAll() {
+    return _items;
+  }
+}
+
+// Fungsi swap
+void swap<T>(List<T> list, int i, int j) {
+  var temp = list[i];
+  list[i] = list[j];
+  list[j] = temp;
+}
+
+// Class Triple
+class Triple<A, B, C> {
+  A first;
+  B second;
+  C third;
+
+  Triple(this.first, this.second, this.third);
+}
+
+void main() {
+  var repo = Repository<int>();
+  repo.save(10);
+  repo.save(20);
+
+  print(repo.getAll());
+
+  var list = [1, 2, 3];
+  swap(list, 0, 2);
+  print(list);
+
+  var triple = Triple<String, int, double>("Age", 21, 1.75);
+  print("${triple.first}, ${triple.second}, ${triple.third}");
+}    
+</code></pre>
+</div>
+    
+    <div class="btn-group">
+        <button class="btn btn-primary" onclick="toggleImage('img11')">
+             Tampil Kode VS Code
+        </button>
+    </div>
+
+    <img id="img11" class="vscode-image" src="vscode11.png" alt="Tampilan VS Code" style="display:none;" 
+         onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22600%22 height=%22400%22 viewBox=%220 0 600 400%22%3E%3Crect width=%22600%22 height=%22400%22 fill=%22%232a2420%22/%3E%3Ctext x=%2250%25%22 y=%2245%25%22 text-anchor=%22middle%22 fill=%22%23d4c5a9%22 font-size=%2220%22 font-family=%22Georgia%22%3E Tampilan VS Code%3C/text%3E%3Ctext x=%2250%25%22 y=%2260%25%22 text-anchor=%22middle%22 fill=%22%23b89a6e%22 font-size=%2214%22%3EPastikan file vscode11.png tersedia%3C/text%3E%3C/svg%3E';">
+</div>
+      
+<!-- 12 -->
+<div class="section">
+<h2>12.Studi Kasus - cache Generic</h2>
+<ul>
+  <li>
+    Program kemudian menampilkan hasil menggunakan <b>print()</b> untuk menunjukkan 
+    bahwa cache dapat menyimpan dan mengambil data dengan berbagai tipe secara fleksibel.
+  </li>
+</ul>    
+<h3>Kode Program VS Code:</h3>
+<div class="code-box">
+<pre><code>
+// Nama  : ADRIL NOVRA MARCELINO
+// NIM   : 251410017
+// Kelas : SI2A
+
+class Cache<T> {
+  final Map<String, T> _storage = {};
+
+  void set(String key, T value) {
+    _storage[key] = value;
+  }
+
+  T? get(String key) {
+    return _storage[key];
+  }
+
+  void remove(String key) {
+    _storage.remove(key);
+  }
+}
+
+// Tambahan agar bisa jalan
+class Product {
+  String name;
+  int price;
+
+  Product(this.name, this.price);
+
+  @override
+  String toString() {
+    return 'Product(name: $name, price: $price)';
+  }
+}
+
+void main() {
+  var userCache = Cache<String>();
+  userCache.set('name', 'Alice');
+
+  print(userCache.get('name'));
+
+  var productCache = Cache<Product>();
+  productCache.set('p1', Product('Laptop', 1000));
+
+  print(productCache.get('p1'));
+}    
+</code></pre>
+</div>
+    <div class="btn-group">
+        <button class="btn btn-primary" onclick="toggleImage('img12')">
+             Tampil Kode VS Code
+        </button>
+    </div>
+
+    <img id="img12" class="vscode-image" src="vscode12.png" alt="Tampilan VS Code" style="display:none;" 
+         onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22600%22 height=%22400%22 viewBox=%220 0 600 400%22%3E%3Crect width=%22600%22 height=%22400%22 fill=%22%232a2420%22/%3E%3Ctext x=%2250%25%22 y=%2245%25%22 text-anchor=%22middle%22 fill=%22%23d4c5a9%22 font-size=%2220%22 font-family=%22Georgia%22%3E Tampilan VS Code%3C/text%3E%3Ctext x=%2250%25%22 y=%2260%25%22 text-anchor=%22middle%22 fill=%22%23b89a6e%22 font-size=%2214%22%3EPastikan file vscode12.png tersedia%3C/text%3E%3C/svg%3E';">
+</div>
+      <!-- 13 -->
+<div class="section">
+<h2>13.Latihan</h2>
+<ul>
+  <li>
+    Class <b>Response&lt;T&gt;</b> merupakan generic class yang digunakan 
+    untuk menampung hasil proses, baik berupa <b>data</b> maupun <b>error</b>.
+  </li>
+</ul>    
+<h3>Kode Program VS Code:</h3>
+<div class="code-box">
+<pre><code>
+// Nama  : ADRIL NOVRA MARCELIN0
+// NIM   : 251410017
+// Kelas : SI.2A
+
+class Stack<T> {
+  final List<T> _items = [];
+
+  void push(T value) {
+    _items.add(value);
+  }
+
+  T? pop() {
+    if (_items.isEmpty) return null;
+    return _items.removeLast();
+  }
+
+  T? peek() {
+    if (_items.isEmpty) return null;
+    return _items.last;
+  }
+}
+
+List<T> mergeLists<T>(List<T> a, List<T> b) {
+  return [...a, ...b];
+}
+
+class Response<T> {
+  T? data;
+  String? error;
+
+  Response({this.data, this.error});
+}
+
+// =======================
+// MAIN
+// =======================
+void main() {
+  // Stack
+  var stack = Stack<int>();
+  stack.push(10);
+  stack.push(20);
+  print('Peek: ${stack.peek()}');
+  print('Pop: ${stack.pop()}');
+
+  // Merge Lists
+  var result = mergeLists([1, 2], [3, 4]);
+  print('Merge: $result');
+
+  // Response
+  var res = Response<String>(data: "Berhasil");
+  print('Response: ${res.data}');
+}    
+</code></pre>
+</div>
+    <div class="btn-group">
+        <button class="btn btn-primary" onclick="toggleImage('img13')">
+             Tampil Kode VS Code
+        </button>
+    </div>
+
+    <img id="img13" class="vscode-image" src="vscode13.png" alt="Tampilan VS Code" style="display:none;" 
+         onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22600%22 height=%22400%22 viewBox=%220 0 600 400%22%3E%3Crect width=%22600%22 height=%22400%22 fill=%22%232a2420%22/%3E%3Ctext x=%2250%25%22 y=%2245%25%22 text-anchor=%22middle%22 fill=%22%23d4c5a9%22 font-size=%2220%22 font-family=%22Georgia%22%3E Tampilan VS Code%3C/text%3E%3Ctext x=%2250%25%22 y=%2260%25%22 text-anchor=%22middle%22 fill=%22%23b89a6e%22 font-size=%2214%22%3EPastikan file vscode13.png tersedia%3C/text%3E%3C/svg%3E';">
+</div>
+
+      
+<!-- 14 -->
+<div class="section">
+<h2>14.Challange</h2>
+<ul>
+  <li>
+    Pada fungsi <b>main()</b>, dibuat dua repository yaitu 
+    <b>Repository&lt;String&gt;</b> untuk data pengguna dan 
+    <b>Repository&lt;Product&gt;</b> untuk data produk.
+  </li>
+</ul>    
+<h3>Kode Program VS Code:</h3>
+<div class="code-box">
+<pre><code>
+// Nama  : ADRIL NOVRA MARCELINO
+// NIM   : 251410017
+// Kelas : SI.2A
+
+// =======================
+// GENERIC REPOSITORY
+// =======================
+class Repository<T> {
+  final List<T> _data = [];
+
+  // tambah data
+  void add(T item) {
+    _data.add(item);
+  }
+
+  // ambil semua data
+  List<T> getAll() {
+    return _data;
+  }
+
+  // hapus data
+  void remove(T item) {
+    _data.remove(item);
+  }
+}
+
+// =======================
+// CONTOH CLASS
+// =======================
+class Product {
+  String name;
+  int price;
+
+  Product(this.name, this.price);
+
+  @override
+  String toString() {
+    return 'Product(name: $name, price: $price)';
+  }
+}
+
+// =======================
+// MAIN
+// =======================
+void main() {
+  // Repository untuk String
+  var userRepo = Repository<String>();
+  userRepo.add("Alice");
+  userRepo.add("Bob");
+
+  print("User Repo: ${userRepo.getAll()}");
+
+  // Repository untuk Product
+  var productRepo = Repository<Product>();
+  productRepo.add(Product("Laptop", 1000));
+  productRepo.add(Product("Mouse", 200));
+
+  print("Product Repo: ${productRepo.getAll()}");
+
+  // Hapus data
+  userRepo.remove("Alice");
+  print("User Repo setelah hapus: ${userRepo.getAll()}");
+}
+</code></pre>
+</div>
+    <div class="btn-group">
+        <button class="btn btn-primary" onclick="toggleImage('img14')">
+             Tampil Kode VS Code
+        </button>
+    </div>
+
+    <img id="img14" class="vscode-image" src="vscode14.png" alt="Tampilan VS Code" style="display:none;" 
+         onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22600%22 height=%22400%22 viewBox=%220 0 600 400%22%3E%3Crect width=%22600%22 height=%22400%22 fill=%22%232a2420%22/%3E%3Ctext x=%2250%25%22 y=%2245%25%22 text-anchor=%22middle%22 fill=%22%23d4c5a9%22 font-size=%2220%22 font-family=%22Georgia%22%3E Tampilan VS Code%3C/text%3E%3Ctext x=%2250%25%22 y=%2260%25%22 text-anchor=%22middle%22 fill=%22%23b89a6e%22 font-size=%2214%22%3EPastikan file vscode14.png tersedia%3C/text%3E%3C/svg%3E';">
+</div>
+      
       
 </div>
 </body>
