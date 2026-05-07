@@ -819,7 +819,7 @@ void main() {
        </div>
     
     <div class="btn-group">
-        <button class="btn btn-primary" onclick="toggleImage('img3')">
+        <button class="btn btn-primary" onclick="toggleImage('img4')">
              Tampil Kode VS Code
         </button>
     </div>
@@ -870,7 +870,7 @@ void main() {
 </div>
     
     <div class="btn-group">
-        <button class="btn btn-primary" onclick="toggleImage('img3')">
+        <button class="btn btn-primary" onclick="toggleImage('img5')">
              Tampil Kode VS Code
         </button>
     </div>
@@ -911,7 +911,7 @@ void main() {
 </div>
     
     <div class="btn-group">
-        <button class="btn btn-primary" onclick="toggleImage('img3')">
+        <button class="btn btn-primary" onclick="toggleImage('img6')">
              Tampil Kode VS Code
         </button>
     </div>
@@ -920,6 +920,207 @@ void main() {
          onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22600%22 height=%22400%22 viewBox=%220 0 600 400%22%3E%3Crect width=%22600%22 height=%22400%22 fill=%22%232a2420%22/%3E%3Ctext x=%2250%25%22 y=%2245%25%22 text-anchor=%22middle%22 fill=%22%23d4c5a9%22 font-size=%2220%22 font-family=%22Georgia%22%3E Tampilan VS Code%3C/text%3E%3Ctext x=%2250%25%22 y=%2260%25%22 text-anchor=%22middle%22 fill=%22%23b89a6e%22 font-size=%2214%22%3EPastikan file vscode6.png tersedia%3C/text%3E%3C/svg%3E';">
 </div>
 
+      <!-- 7 -->
+<div class="section">
+<h2>7.Generic Dengan Extends</h2>
+<ul>
+  <li>
+    Dengan penggunaan bounded generic, program menjadi lebih aman karena 
+    tipe data dibatasi sesuai kebutuhan, sehingga mengurangi kesalahan saat 
+    program dijalankan.
+  </li>
+</ul>    
+<h3>Kode Program VS Code:</h3>
+<div class="code-box">
+<pre><code>
+// Nama  : ADRIL NOVRA MARCELINO
+// NIM   : 251410017
+// Kelas : SI.2A
+
+class NumberBox<T extends num> {
+  T value;
+
+  NumberBox(this.value);
+
+  T getValue() {
+    return value;
+  }
+}
+
+void main() {
+  var intBox = NumberBox<int>(10);
+  print("Int: ${intBox.getValue()}");
+
+  var doubleBox = NumberBox<double>(3.14);
+  print("Double: ${doubleBox.getValue()}");
+
+  // var stringBox = NumberBox<String>("test"); // ❌ Error
+}    
+</code></pre>
+</div>
+    
+    <div class="btn-group">
+        <button class="btn btn-primary" onclick="toggleImage('img7')">
+             Tampil Kode VS Code
+        </button>
+    </div>
+
+    <img id="img7" class="vscode-image" src="vscode7.png" alt="Tampilan VS Code" style="display:none;" 
+         onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22600%22 height=%22400%22 viewBox=%220 0 600 400%22%3E%3Crect width=%22600%22 height=%22400%22 fill=%22%232a2420%22/%3E%3Ctext x=%2250%25%22 y=%2245%25%22 text-anchor=%22middle%22 fill=%22%23d4c5a9%22 font-size=%2220%22 font-family=%22Georgia%22%3E Tampilan VS Code%3C/text%3E%3Ctext x=%2250%25%22 y=%2260%25%22 text-anchor=%22middle%22 fill=%22%23b89a6e%22 font-size=%2214%22%3EPastikan file vscode7.png tersedia%3C/text%3E%3C/svg%3E';">
+</div>
+
+      
+      <!-- 8 -->
+<div class="section">
+<h2>8.Type Inference (Inferensi Tipe)</h2>
+<ul>
+  <li>
+    Dengan penggunaan generic function, program menjadi lebih sederhana, 
+    fleksibel, dan tetap aman karena tipe data tetap konsisten antara input 
+    dan output.
+  </li>
+</ul>    
+<h3>Kode Program VS Code:</h3>
+<div class="code-box">
+<pre><code>
+// Nama  : ADRIL NOVRA MARCELINO
+// NIM   : 251410017
+// Kelas : SI2A
+
+T myFunc<T>(T value) {
+  return value;
+}
+
+void main() {
+  var intValue = myFunc(10); // otomatis int
+  print(intValue.runtimeType);
+
+  var stringValue = myFunc("test"); // otomatis String
+  print(stringValue.runtimeType);
+}    
+</code></pre>
+</div>
+    
+    <div class="btn-group">
+        <button class="btn btn-primary" onclick="toggleImage('img8')">
+             Tampil Kode VS Code
+        </button>
+    </div>
+
+    <img id="img8" class="vscode-image" src="vscode8.png" alt="Tampilan VS Code" style="display:none;" 
+         onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22600%22 height=%22400%22 viewBox=%220 0 600 400%22%3E%3Crect width=%22600%22 height=%22400%22 fill=%22%232a2420%22/%3E%3Ctext x=%2250%25%22 y=%2245%25%22 text-anchor=%22middle%22 fill=%22%23d4c5a9%22 font-size=%2220%22 font-family=%22Georgia%22%3E Tampilan VS Code%3C/text%3E%3Ctext x=%2250%25%22 y=%2260%25%22 text-anchor=%22middle%22 fill=%22%23b89a6e%22 font-size=%2214%22%3EPastikan file vscode8.png tersedia%3C/text%3E%3C/svg%3E';">
+</div>
+
+<!-- 9 -->
+<div class="section">
+<h2>9.Pembatasan Tipe Pada Interface dan Class</h2>
+<ul>
+  <li>
+    Dengan penggunaan bounded generic pada Iterable, program menjadi lebih 
+    aman karena hanya menerima struktur data yang dapat diiterasi, sehingga 
+    menghindari kesalahan saat runtime.
+  </li>
+</ul>    
+<h3>Kode Program VS Code:</h3>
+<div class="code-box">
+<pre><code>
+// Nama  : ADRIL NOVRA MARCELINO
+// NIM   : 251410017
+// Kelas : SI2A
+
+void printIterable<T extends Iterable<dynamic>>(T iterable) {
+  for (var item in iterable) {
+    print(item);
+  }
+}
+
+void main() {
+  printIterable<List<int>>([1, 2, 3]);
+  printIterable<Set<String>>({'apple', 'banana'});
+
+  // printIterable<int>(10); // ❌ Error
+}
+</code></pre>
+</div>
+    
+    <div class="btn-group">
+        <button class="btn btn-primary" onclick="toggleImage('img9')">
+             Tampil Kode VS Code
+        </button>
+    </div>
+
+    <img id="img9" class="vscode-image" src="vscode9.png" alt="Tampilan VS Code" style="display:none;" 
+         onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22600%22 height=%22400%22 viewBox=%220 0 600 400%22%3E%3Crect width=%22600%22 height=%22400%22 fill=%22%232a2420%22/%3E%3Ctext x=%2250%25%22 y=%2245%25%22 text-anchor=%22middle%22 fill=%22%23d4c5a9%22 font-size=%2220%22 font-family=%22Georgia%22%3E Tampilan VS Code%3C/text%3E%3Ctext x=%2250%25%22 y=%2260%25%22 text-anchor=%22middle%22 fill=%22%23b89a6e%22 font-size=%2214%22%3EPastikan file vscode9.png tersedia%3C/text%3E%3C/svg%3E';">
+</div>
+
+      - 10 -->
+<div class="section">
+<h2>10.Pembatasan Tipe Dengan Class Abstract</h2>
+<ul>
+  <li>
+    Class <b>Dog</b> dan <b>Cat</b> mengimplementasikan (implements) class 
+    <b>Animal</b>, sehingga wajib mengoverride method <b>makeSound()</b> 
+    sesuai dengan perilaku masing-masing hewan.
+  </li>
+</ul>    
+<h3>Kode Program VS Code:</h3>
+<div class="code-box">
+<pre><code>
+// Nama  : ADRIL NOVRA MARCELINO
+// NIM   : 251410017
+// Kelas : SI2A
+
+abstract class Animal {
+  void makeSound();
+}
+
+class Dog implements Animal {
+  @override
+  void makeSound() {
+    print("Woof!");
+  }
+}
+
+class Cat implements Animal {
+  @override
+  void makeSound() {
+    print("Meow!");
+  }
+}
+
+class AnimalCage<T extends Animal> {
+  T animal;
+
+  AnimalCage(this.animal);
+
+  void sound() {
+    animal.makeSound();
+  }
+}
+
+void main() {
+  var dogCage = AnimalCage<Dog>(Dog());
+  dogCage.sound();
+
+  var catCage = AnimalCage<Cat>(Cat());
+  catCage.sound();
+
+  // var wrong = AnimalCage<String>("test"); // ❌ Error
+}
+</code></pre>
+</div>
+    
+    <div class="btn-group">
+        <button class="btn btn-primary" onclick="toggleImage('img10')">
+             Tampil Kode VS Code
+        </button>
+    </div>
+
+    <img id="img10" class="vscode-image" src="vscode10.png" alt="Tampilan VS Code" style="display:none;" 
+         onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22600%22 height=%22400%22 viewBox=%220 0 600 400%22%3E%3Crect width=%22600%22 height=%22400%22 fill=%22%232a2420%22/%3E%3Ctext x=%2250%25%22 y=%2245%25%22 text-anchor=%22middle%22 fill=%22%23d4c5a9%22 font-size=%2220%22 font-family=%22Georgia%22%3E Tampilan VS Code%3C/text%3E%3Ctext x=%2250%25%22 y=%2260%25%22 text-anchor=%22middle%22 fill=%22%23b89a6e%22 font-size=%2214%22%3EPastikan file vscode10.png tersedia%3C/text%3E%3C/svg%3E';">
+</div>
+
+      
       
 </div>
 </body>
